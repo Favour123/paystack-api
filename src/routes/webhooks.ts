@@ -6,7 +6,11 @@ import Book from '../models/Book';
 const router = express.Router();
 
 // Middleware to verify Paystack webhook signature
-const verifyPaystackSignature = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+const verifyPaystackSignature = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
   const hash = crypto
     .createHmac('sha512', process.env.PAYSTACK_WEBHOOK_SECRET!)
     .update(JSON.stringify(req.body))
@@ -15,11 +19,11 @@ const verifyPaystackSignature = (req: express.Request, res: express.Response, ne
   if (hash !== req.headers['x-paystack-signature']) {
     return res.status(400).json({
       success: false,
-      message: 'Invalid webhook signature'
+      message: 'Invalid webhook signature',
     });
   }
 
-  next();
+  return next(); // ✅ Added return
 };
 
 // POST /api/webhooks/paystack - Handle Paystack webhooks

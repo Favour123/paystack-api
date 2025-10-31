@@ -74,7 +74,7 @@ app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Happy Little Pages API running on port ${PORT}`);
+  console.log(`🚀 Happy Little Pages API running on port ${PORT} Sucessfully`);
   console.log(`📚 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🌐 Health check: http://localhost:${PORT}/health`);
 });

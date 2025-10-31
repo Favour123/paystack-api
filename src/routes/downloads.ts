@@ -147,20 +147,18 @@ router.get('/history/:token', async (req, res) => {
   try {
     const { token } = req.params;
 
-    // Find purchase with valid token
-    const purchase = await Purchase.findOne({ 
+    const purchase = await Purchase.findOne({
       downloadToken: token,
-      status: 'successful'
+      status: 'successful',
     }).populate('bookId');
 
     if (!purchase) {
       return res.status(404).json({
         success: false,
-        message: 'Invalid download token'
+        message: 'Invalid download token',
       });
     }
 
-    // Get download history
     const downloads = await Download.find({ purchaseId: purchase._id })
       .sort({ downloadedAt: -1 })
       .select('downloadedAt ipAddress userAgent');
@@ -174,19 +172,19 @@ router.get('/history/:token', async (req, res) => {
           customerEmail: purchase.customerEmail,
           downloadCount: purchase.downloadCount,
           maxDownloads: purchase.maxDownloads,
-          expiresAt: purchase.downloadExpiresAt
+          expiresAt: purchase.downloadExpiresAt,
         },
-        downloads: downloads
-      }
+        downloads,
+      },
     });
-
   } catch (error) {
     console.error('Error fetching download history:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
-      message: 'Failed to fetch download history'
+      message: 'Failed to fetch download history',
     });
   }
 });
+
 
 export default router;
