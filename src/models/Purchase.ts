@@ -82,8 +82,6 @@ const PurchaseSchema = new Schema<IPurchase>({
 });
 
 // Indexes for better query performance
-PurchaseSchema.index({ paystackReference: 1 });
-PurchaseSchema.index({ downloadToken: 1 });
 PurchaseSchema.index({ customerEmail: 1 });
 PurchaseSchema.index({ status: 1, downloadExpiresAt: 1 });
 

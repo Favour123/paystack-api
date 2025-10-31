@@ -61,7 +61,7 @@ const sampleBooks = [
 const seedBooks = async () => {
   try {
     // Connect to MongoDB
-    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/happy-little-pages';
+    const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://onifadeololadefavour2_db_user:XvMIawM9c2vXFv9E@cluster0.i2ld1oq.mongodb.net/';
     await mongoose.connect(mongoURI);
     console.log('Connected to MongoDB');
 
